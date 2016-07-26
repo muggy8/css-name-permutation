@@ -33,6 +33,8 @@ function cssUnpack(targetID){
 	var output = document.createElement("p");
 	output.id = resultDumpID;
 	
+	output.innerHTML = cssNames.toString() + "{<br><br>}<br>";
+	
 	for (var i = 0; i < cssNames.length; i++){
 		output.innerHTML += cssNames[i] + "{<br><br>}<br>"
 	}
