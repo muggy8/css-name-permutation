@@ -19,3 +19,9 @@ function transmute(cssCluster){
 	
 	return returnCluster;
 }
+
+function (targetID){
+	var packedCSS = document.querySelector(targetID).value;
+	
+	return false;
+}
