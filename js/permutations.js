@@ -20,8 +20,24 @@ function transmute(cssCluster){
 	return returnCluster;
 }
 
-function (targetID){
-	var packedCSS = document.querySelector(targetID).value;
+function cssUnpack(targetID){
+	var resultDumpID = "name-dump";
+	
+	var cssNames = transmute(document.querySelector(targetID).value);
+	
+	var previousList = document.querySelector("#" + resultDumpID);
+	if (previousList){
+		previousList.parentNode.removeChild(previousList);
+	}
+	
+	var output = document.createElement("p");
+	output.id = resultDumpID;
+	
+	for (var i = 0; i < cssNames.length; i++){
+		output.innerHTML += cssNames[i] + "{<br><br>}<br>"
+	}
+	
+	document.querySelector('body').appendChild(output);
 	
 	return false;
 }
