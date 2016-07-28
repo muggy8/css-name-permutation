@@ -6,9 +6,16 @@
 	<body>
 		<form onsubmit="return cssUnpack('#packed-css')">
 			Compact Classname: <textarea type="text" id="packed-css"></textarea><br>
-			<div id="regex-style-template">if class name has <input type="text" id="regex1" placeholder="regex"> then styling has <input type="text" id="style1" placeholder="styling"></div>
+			Permutations Mass Selector: <input type="checkbox" id="common-select" checked>
+			<div id="framework-rules">
+				<div id="regex-style-template">
+					if class name has /<input type="text" id="regex0" placeholder="regex">/ 
+					then styling contains <input type="text" id="style0" placeholder="styling">
+					<input type="button" onclick="deleteRuleDom(this)" value="Delete Rule">
+				</div>
+			</div>
+			<input type="Create Permutations">
 			<input type="button" value="add regex styler" onclick="dupRegexInput()">
-			<input type="submit">
 		</form>
 	</body>
 </html>
