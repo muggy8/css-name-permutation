@@ -36,10 +36,22 @@ function cssUnpack(targetID){
 	output.innerHTML = cssNames.toString() + "{<br><br>}<br>";
 	
 	for (var i = 0; i < cssNames.length; i++){
-		output.innerHTML += cssNames[i] + "{<br><br>}<br>"
+		output.innerHTML += cssNames[i] + "{"
+		
+		output.innerHTML += cssNames[i] + "}"
 	}
 	
 	document.querySelector('body').appendChild(output);
 	
 	return false;
+}
+
+function dupRegexInput(){
+	var clone = document.getElementById("regex-style-template").cloneNode(true);
+	clone.setAttribute("id", );
+	
+	clone.querySelector("#regex1").id = "regex" + document.querySelectorAll('[id*="regex"]').length;
+	clone.querySelector("#style1").id = "style" + (document.querySelectorAll('[id*="regex"]').length);
+	
+	document.getElementById("regex-style-template").parentNode.appendChild(clone);
 }

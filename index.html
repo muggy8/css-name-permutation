@@ -5,7 +5,9 @@
 	</head>
 	<body>
 		<form onsubmit="return cssUnpack('#packed-css')">
-			<input type="text" id="packed-css">
+			Compact Classname: <textarea type="text" id="packed-css"></textarea><br>
+			<div id="regex-style-template">if class name has <input type="text" id="regex1" placeholder="regex"> then styling has <input type="text" id="style1" placeholder="styling"></div>
+			<input type="button" value="add regex styler" onclick="dupRegexInput()">
 			<input type="submit">
 		</form>
 	</body>
