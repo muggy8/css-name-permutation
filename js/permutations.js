@@ -46,13 +46,14 @@ function cssUnpack(targetID){
 	}
 	
 	for (var i = 0; i < cssNames.length; i++){
-		output.innerHTML += cssNames[i] + "{"
-		styleRegexRule.forEach(function(ruleItem){
+		output.innerHTML += "<div name='"+cssNames[i]+"'>";
+		output.innerHTML += "<span class='selector-name'>" + cssNames[i] + "</span>{"
+		styleRegexRule.forEach(function(ruleItem, ruleIndex){
 			if (cssNames[i].match(ruleItem.regex)){
-				output.innerHTML += ruleItem.rule;
+				output.innerHTML += " <span class='regex-rule-"+ruleIndex+"'>" + ruleItem.rule + "</span>";				
 			}
 		});
-		output.innerHTML += "}<br><br>"
+		output.innerHTML += "}</div>"
 	}
 	
 	document.querySelector('body').appendChild(output);
@@ -86,3 +87,25 @@ function jsReload(){
 	newScript.src = 'js/permutations.js?t='+timestamp;
 	document.querySelector("body").appendChild(newScript);
 }
+
+(function(){
+	window.$ = function(selector){
+		return Array.from(document.querySelectorAll(selector));
+	}
+	
+	Array.prototype.each = function(callback){
+		this.forEach(function(item, index, array){
+			callback(item, index, array);
+		});
+		return this;
+	}
+	
+	Array.prototype.find = function(selector){
+		var collection = [];
+		this.forEach(function(item){
+			console.log(item);
+		});
+		return collection;
+	}
+})()
+
