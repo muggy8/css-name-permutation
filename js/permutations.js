@@ -46,14 +46,17 @@ function cssUnpack(targetID){
 	}
 	
 	for (var i = 0; i < cssNames.length; i++){
-		output.innerHTML += "<div name='"+cssNames[i]+"'>";
-		output.innerHTML += "<span class='selector-name'>" + cssNames[i] + "</span>{"
+		var item = "";
+		item += "<div name='"+cssNames[i]+"'>";
+		item += "<span class='selector-name' title='class = selector-name'>" + cssNames[i] + "</span>{"
 		styleRegexRule.forEach(function(ruleItem, ruleIndex){
 			if (cssNames[i].match(ruleItem.regex)){
-				output.innerHTML += " <span class='regex-rule-"+ruleIndex+"'>" + ruleItem.rule + "</span>";				
+				item += " <span title='class = regex-rule-"+ruleIndex+"' class='regex-rule-"+ruleIndex+"' onclick='console.log(this)'>" + ruleItem.rule + "</span>";				
 			}
 		});
-		output.innerHTML += "}</div>"
+		item += "}</div>";
+		
+		output.innerHTML += item;
 	}
 	
 	document.querySelector('body').appendChild(output);
@@ -89,8 +92,15 @@ function jsReload(){
 }
 
 (function(){
-	window.$ = function(selector){
-		return Array.from(document.querySelectorAll(selector));
+	window.$ = function(selector, context){
+		var res = [];
+		context = context || document;
+		var sel = context.querySelectorAll(selector);
+		for (var i = 0; i < sel.length; i++){
+			res.push(sel[i]);
+			//console.log(sel[i]);
+		}
+		return res;
 	}
 	
 	Array.prototype.each = function(callback){
@@ -100,12 +110,48 @@ function jsReload(){
 		return this;
 	}
 	
+	Array.prototype.eq = function(i){
+		return [this[i]];
+	}
+	
 	Array.prototype.find = function(selector){
 		var collection = [];
 		this.forEach(function(item){
-			console.log(item);
+			collection = collection.concat($(selector, item));
 		});
 		return collection;
 	}
+	
+	Array.prototype.on = function(ev, callback){
+		ev = "on" + ev;
+		this.each(function(item){
+			item[ev] = callback;
+		});
+		return this;
+	}
+	
+	Array.prototype.off = function(ev){
+		ev = "on" + ev;
+		this.each(function(item){
+			item[ev] = function(){};
+		});
+		
+		return this;
+	}
+	
+	Array.prototype.attr = function(attribute, val){
+		var vals = [];
+		this.each(function(item){
+			if (val !== undefined){
+				item.setAttribute(attribute, val);
+			}
+			else{
+				vals.push(item.getAttribute(attribute));
+			}
+		});
+		if (val !== undefined){
+			return this;
+		}
+		return vals;
+	}
 })()
-
